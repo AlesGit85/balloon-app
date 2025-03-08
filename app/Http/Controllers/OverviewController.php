@@ -30,7 +30,7 @@ class OverviewController extends Controller
                 ->get();
         }
 
-        // 📌 Seřazené lety podle termínu nebo výchozího řazení
+        // Seřazené lety podle termínu nebo výchozího řazení
         if (in_array($sort, ['date_flights'])) {
             $flights = Flight::orderBy($sort, $direction)->get();
         } else {
