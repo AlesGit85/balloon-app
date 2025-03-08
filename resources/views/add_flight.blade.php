@@ -1,21 +1,15 @@
-<x-layouts.app title="Přidat let" :user="auth()->user()">
+<x-layouts.app title="Vytvoření letu" :user="auth()->user()">
 
     <div class="max-w-lg border mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-        <h2 class="text-xl font-bold mb-4 text-center">Přidání letu</h2>
+        <h2 class="text-xl font-bold mb-4 text-center">Vytvoření letu</h2>
         
-        @if (session('success'))
-            <div class="bg-green-500 text-white p-4 mb-2 rounded-lg shadow-md">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <form action="{{ route('flights.store') }}" method="POST" class="space-y-4">
             @csrf
 
             <!-- Výběr objednávky -->
             <div>
                 <label for="flight" class="block text-sm font-medium text-gray-700">Číslo objednávky</label>
-                <select id="flight" name="number" class="mt-1 w-full p-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                <select id="flight" name="number" class="mt-1 w-full p-2 border rounded-md shadow-xs focus:ring-1 focus:ring-gray-300">
                     <option value="">Vyber objednávku</option>
                     @foreach ($orders as $order)
                         <option value="{{ $order->order_number }}">{{ $order->order_number }}</option>

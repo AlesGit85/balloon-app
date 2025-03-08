@@ -1,13 +1,13 @@
 <x-layouts.app title="Přehled" :user="auth()->user()">
 
     <div class="container mx-auto py-6">
-        <h2 class="font-semibold text-l text-center text-red-600">Přehled objednávek:</h2>
+        <h2 class="font-semibold text-l text-center text-gray-600">Přehled objednávek:</h2>
         
         <!-- Řadicí tlačítka pro objednávky -->
         <div class="flex items-center mb-6">
             <p class="text-sm font-semibold pr-2">Seřadit objednávky podle: </p>
             <div class="flex space-x-2">
-                <div class="inline-flex rounded-md shadow-sm">
+                <div class="inline-flex rounded-md shadow-xs">
                     <a href="{{ route('overview', ['sort' => 'order_number', 'direction' => 'asc']) }}" 
                        class="px-3 py-2 text-sm font-medium rounded-l-lg border {{ ($sort == 'order_number' && $direction == 'asc') ? 'bg-red-600 text-white' : 'bg-white border-gray-200' }}">
                         Číslo objednávky ↑
@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 
-                <div class="inline-flex rounded-md shadow-sm">
+                <div class="inline-flex rounded-md shadow-xs">
                     <a href="{{ route('overview', ['sort' => 'date', 'direction' => 'asc']) }}" 
                        class="px-3 py-2 text-sm font-medium rounded-l-lg border {{ ($sort == 'date' && $direction == 'asc') ? 'bg-red-600 text-white' : 'bg-white border-gray-200' }}">
                         Termín ↑
@@ -32,8 +32,9 @@
         </div>
 
         @if($orders->isEmpty())
-            <p class="text-gray-500">Žádné objednávky nejsou k dispozici.</p>
+            <p class="text-gray-400 font-semibold">.: Všechny objednávky mají přiřazené lety :.</p>
         @else
+    
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($orders as $order)
                     <div class="p-4 border rounded-xl shadow-lg hover:bg-red-50 transition duration-300">
@@ -61,13 +62,13 @@
     </div>
 
     <hr class="py-4">
-    <h2 class="font-semibold text-l text-center text-red-600">Přehled letů:</h2>
+    <h2 class="font-semibold text-l text-center text-gray-600">Přehled letů:</h2>
 
     <!-- Řadicí tlačítka pro lety -->
     <div class="flex items-center mb-6">
         <p class="text-sm font-semibold pr-2">Seřadit lety podle: </p>
         <div class="flex space-x-2">
-            <div class="inline-flex rounded-md shadow-sm">
+            <div class="inline-flex rounded-md shadow-xs">
                 <a href="{{ route('overview', ['sort' => 'date_flights', 'direction' => 'asc']) }}" 
                    class="px-3 py-2 text-sm font-medium rounded-l-lg border {{ ($sort == 'date_flights' && $direction == 'asc') ? 'bg-red-600 text-white' : 'bg-white border-gray-200' }}">
                     Termín ↑

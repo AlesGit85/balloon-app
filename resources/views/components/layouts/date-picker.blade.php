@@ -1,17 +1,6 @@
 @props(['name' => 'date_range'])
 
 <div class="p-4 max-w-md bg-white">
-    <!-- Flash zprávy -->
-    @if (session('success'))
-        <div class="bg-green-500 text-white p-4 mb-2 rounded-lg shadow-md">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="bg-red-500 text-white p-4 mb-2 rounded-lg shadow-md">
-            {{ session('error') }}
-        </div>
-    @endif
 
 <div x-data="{ switchOn: false }" class="p-4 max-w-md bg-white">
     <!-- Switch -->
@@ -23,7 +12,7 @@
 
             <button x-ref="switchButton" type="button" @click="switchOn = !switchOn"
                 :class="switchOn ? 'bg-red-600' : 'bg-neutral-200'"
-                class="relative inline-flex h-6 py-0.5 ml-4 focus:outline-none rounded-full w-10" x-cloak>
+                class="relative inline-flex h-6 py-0.5 ml-4 focus:outline-hidden rounded-full w-10" x-cloak>
                 <span :class="switchOn ? 'translate-x-[18px]' : 'translate-x-0.5'"
                     class="w-5 h-5 duration-200 ease-in-out bg-white rounded-full shadow-md"></span>
             </button>
@@ -47,7 +36,6 @@
 
             <x-layouts.button>Nastavit dovolenou</x-layouts.button>
         </form>
-
 
     </div>
 </div>

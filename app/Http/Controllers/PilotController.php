@@ -22,8 +22,8 @@ class PilotController extends Controller
 
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'typ_licence' => 'required|in:PPL-B,CPL-B,both-types',
-            'number_licence' => 'required|string|max:255',
+            'typ_licence' => 'required|in:PPL(B),CPL(B),PPL(B) + CPL(B)',
+            'number_licence' => 'required|string|max:50',
         ]);
 
 
@@ -44,20 +44,17 @@ class PilotController extends Controller
 
     public function setVacation(Request $request)
     {
-        // Ověření přihlášení uživatele
         $user = Auth::user();
 
         if (!$user) {
             return redirect()->back()->with('error', 'Musíte být přihlášen.');
         }
 
-        // Validace formuláře
         $validated = $request->validate([
             'vacation_date_from' => 'required|date',
             'vacation_date_to' => 'required|date|after_or_equal:vacation_date_from',
         ]);
 
-        // Aktualizace záznamu pilota
         $pilot = Pilot::where('user_ID', $user->id)->first();
 
         if (!$pilot) {
@@ -77,4 +74,72 @@ class PilotController extends Controller
         $pilots = Pilot::all();
         return view('pilots', compact('pilots'));
     }
+
+    public function edit($id)
+{
+    $pilot = Pilot::findOrFail($id);
+    return view('edit_pilot', compact('pilot'));
+}
+
+public function update(Request $request, $id)
+{
+    $pilot = Pilot::findOrFail($id);
+
+    $validated = $request->validate([
+        'user_name' => 'required|string|max:255',
+        'typ_licence' => 'required|string|max:50',
+        'number_licence' => 'required|string|max:50',
+        'vacation_date_from' => 'nullable|date',
+        'vacation_date_to' => 'nullable|date|after_or_equal:vacation_date_from',
+    ]);
+
+    $pilot->update($validated);
+
+    return redirect()->route('pilots.index')->with('success', 'Pilot byl úspěšně aktualizován.');
+}
+
+public function addPilotForm()
+{
+    $flights = \App\Models\Flight::all();
+    $pilots = \App\Models\Pilot::all();
+
+    return view('add_pilot', compact('flights', 'pilots'));
+}
+
+public function assignPilot(Request $request)
+{
+    $validated = $request->validate([
+        'flight_id' => 'required|exists:flights,id',
+        'pilot_id' => 'required|exists:pilots,id',
+    ]);
+
+    // Najdi let a pilota
+    $flight = \App\Models\Flight::findOrFail($request->flight_id);
+    $pilot = \App\Models\Pilot::findOrFail($request->pilot_id);
+
+    // Zapiš pilota do sloupce 'pilot' v tabulce flights
+    $flight->pilot = $pilot->user_name;
+    $flight->save();
+
+    return redirect()->route('pilots.add')->with('success', 'Pilot byl úspěšně přiřazen k letu.');
+}
+
+public function settings()
+{
+    $user = Auth::user();
+
+    // Najdi pilota podle `user_ID`
+    $pilot = Pilot::where('user_ID', $user->id)->first();
+
+    // Pokud pilot nemá dovolenou, pošleme `null`
+    $vacation = ($pilot && $pilot->vacation_date_from && $pilot->vacation_date_to)
+        ? [
+            'from' => $pilot->vacation_date_from,
+            'to' => $pilot->vacation_date_to
+        ]
+        : null;
+
+    return view('settings', compact('vacation'));
+}
+
 }

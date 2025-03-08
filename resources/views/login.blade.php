@@ -1,7 +1,7 @@
 <x-layouts.index>
 
     <div>
-        <h3 class="text-lg font-bold">Přihlášení do evidence letů</h3>
+        <h3 class="text-lg font-bold text-center">Přihlášení do evidence letů</h3>
 
 
         <form action="/login" method="post" class="text-center">
@@ -17,7 +17,7 @@
                     placeholder="Přihlašovací heslo"><br>
                 <x-layouts.button>Přihlásit se</x-layouts.button>
             </div>
-            <a href="/">Ještě nemáte učet? Zaregistrujte se.</a>
+            <a href="/register">Ještě nemáte učet? Zaregistrujte se.</a>
         </form>
 
     </div>

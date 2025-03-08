@@ -14,7 +14,20 @@
 
         <section class="border border-gray-400 shadow-2xl rounded-xl p-8 bg-gray-200 flex flex-col items-center">
             <img class="h-12" src="{{ asset('img/Group24.avif') }}" alt="Evidence letů">
-
+            <div class="p-2 m-2">
+                @if (session('error'))
+                <div class="bg-red-600 text-white p-4 rounded-md shadow-md mb-4 text-center">
+                    {{ session('error') }}
+                </div>
+                @endif
+                
+                @if (session('success'))
+                <div class="bg-green-500 text-white p-4 rounded-md shadow-md mb-4 text-center">
+                    {{ session('success') }}
+                </div>
+                @endif
+            </div>
+                
             {{ $slot }}
 
         </section>

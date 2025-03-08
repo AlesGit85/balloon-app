@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? '' }} - Administrace - Evidence letu balonem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     @fluxAppearance
 </head>
 <div class="flex h-screen">
@@ -63,7 +64,7 @@
                             <path d="M9 14h6" />
                             <path d="M12 17v-6" />
                         </svg>
-                        Přidat let</a>
+                        Vytvořit let</a>
                 </div>
 
                 <div @class([
@@ -168,7 +169,7 @@
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.3-4.3" />
                     </svg>
-                    <input placeholder=" Vyhledávání..." type="search" class="bg-zinc-100 focus:outline-none">
+                    <input placeholder=" Vyhledávání..." type="search" class="bg-zinc-100 focus:outline-hidden">
                 </div>
                 <button type="submit" class="bg-red-600 items-center p-2 rounded-r-full">
                     <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -195,7 +196,7 @@
                     </svg>
                     <template x-teleport="body">
                         <div x-show="modalOpen"
-                            class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen"
+                            class="fixed top-0 left-0 z-99 flex items-center justify-center w-screen h-screen"
                             x-cloak>
                             <div x-show="modalOpen" x-transition:enter="ease-out duration-300"
                                 x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -235,10 +236,10 @@
                 }" class="relative">
 
                     <button @click="dropdownOpen=true"
-                        class="inline-flex items-center justify-center h-12 py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
+                        class="inline-flex items-center justify-center h-12 py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none">
                         <img src="https://cdn.devdojo.com/images/may2023/adam.jpeg"
                             class="object-cover w-8 h-8 border rounded-full border-neutral-200" />
-                        <span class="flex flex-col items-start flex-shrink-0 h-full ml-2 leading-none translate-y-px">
+                        <span class="flex flex-col items-start shrink-0 h-full ml-2 leading-none translate-y-px">
                             <span>{{ $user->name }}</span>
                             <span class="text-xs font-light text-neutral-400">{{ $user->role }}</span>
                         </span>
@@ -258,7 +259,7 @@
                             <div class="px-2 py-1.5 text-sm font-semibold">Můj účet</div>
                             <div class="h-px my-1 -mx-1 bg-neutral-200"></div>
                             <a href="/profile"
-                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors data-disabled:pointer-events-none data-disabled:opacity-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2">
@@ -269,7 +270,7 @@
                                 <span class="ml-auto text-xs tracking-widest opacity-60">⇧⌘P</span>
                             </a>
                             <a href="/settings"
-                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors data-disabled:pointer-events-none data-disabled:opacity-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2">
@@ -283,7 +284,7 @@
                             </a>
                             <div class="h-px my-1 -mx-1 bg-neutral-200"></div>
                             <a href="/logout"
-                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2">
@@ -304,7 +305,18 @@
 
         <!-- Pravý panel (hlavní obsah) -->
 
-
+        @if (session('error'))
+        <div class="bg-red-600 text-white p-4 rounded-md shadow-md mb-4 text-center">
+            {{ session('error') }}
+        </div>
+    @endif
+    
+    @if (session('success'))
+        <div class="bg-green-500 text-white p-4 rounded-md shadow-md mb-4 text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+    
 
         {{ $slot }}
 
