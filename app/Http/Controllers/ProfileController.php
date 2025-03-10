@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Models\Pilot;
 
 class ProfileController extends Controller
 {
     public function show()
     {
-        return view('profile')->with('user', Auth::user());
+        $user = Auth::user();
+        $pilot = Pilot::where('user_id', $user->id)->first();
+    
+        return view('profile', [
+            'user' => $user,
+            'number_licence' => $pilot ? $pilot->number_licence : 'Není dostupné'
+        ]);
     }
-
+    
     public function update(Request $request)
     {
         $user = Auth::user();

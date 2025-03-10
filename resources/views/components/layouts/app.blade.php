@@ -137,8 +137,8 @@
 
             <div @class([
                 'flex items-center p-2 hover:bg-red-600 hover:text-white active:bg-red-400 active:text-white active:font-bold rounded-xl',
-                'bg-red-600 text-white' => request()->is('add_note'),
-            ])> <a href="/add_note" class="flex pl-2 gap-2">
+                'bg-red-600 text-white' => request()->is('flight_record'),
+            ])> <a href="/flight_record" class="flex pl-2 gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-notebook-pen">

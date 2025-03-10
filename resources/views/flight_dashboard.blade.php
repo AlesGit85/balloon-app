@@ -24,6 +24,7 @@
                     <th class="border border-gray-300 p-2">Datum</th>
                     <th class="border border-gray-300 p-2">Odkud</th>
                     <th class="border border-gray-300 p-2">Kam</th>
+                    <th class="border border-gray-300 p-2">Poznámka</th>
                     <th class="border border-gray-300 p-2">Akce</th>
                 </tr>
             </thead>
@@ -34,7 +35,8 @@
                         <td class="border border-gray-300 p-2">{{ \Carbon\Carbon::parse($flight->date_flights)->format('d.m.Y') }}</td>
                         <td class="border border-gray-300 p-2">{{ $flight->from }}</td>
                         <td class="border border-gray-300 p-2">{{ $flight->to }}</td>
-                        <td class="border border-gray-300 p-2">Přidat záznam</td>
+                        <td class="border border-gray-300 p-2"></td>
+                        <td class="border border-gray-300 p-2">Přidat poznámku</td>
                     </tr>
                 @endforeach
             </tbody>

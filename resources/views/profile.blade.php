@@ -6,6 +6,7 @@
                 <p><strong>Jméno:</strong> {{ $user->name }}</p>
                 <p><strong>Email:</strong> {{ $user->email }}</p>
                 <p><strong>Pozice:</strong> {{ ucfirst($user->role) }}</p>
+                <p><strong>Číslo licence:</strong> {{ $number_licence }}</p>
             </div>
         
             <!-- Flux modal trigger - tlačítko bude vertikálně zarovnané na střed -->

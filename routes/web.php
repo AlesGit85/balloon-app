@@ -47,14 +47,15 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/add_note', function () {
             return view('add_note');
         });
+        Route::get('/flight_record', function () {
+            return view('flight_record');
+        });
     });
     
     // Routy pro všechny přihlášené uživatele
-    Route::post('/settings/vacation', [PilotController::class, 'setVacation'])->name('pilots.setVacation');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/settings', function () {
-        return view('settings');
-    });
+    Route::post('/settings/vacation', [PilotController::class, 'setVacation'])->name('pilots.setVacation');
     Route::get('/settings', [PilotController::class, 'settings'])->name('settings');
+
 });
