@@ -35,8 +35,12 @@
                         <td class="border border-gray-300 p-2">{{ \Carbon\Carbon::parse($flight->date_flights)->format('d.m.Y') }}</td>
                         <td class="border border-gray-300 p-2">{{ $flight->from }}</td>
                         <td class="border border-gray-300 p-2">{{ $flight->to }}</td>
-                        <td class="border border-gray-300 p-2"></td>
-                        <td class="border border-gray-300 p-2">Přidat poznámku</td>
+                        <td class="border border-gray-300 p-2">{{ $flight->notes }}</td>
+                        <td class="border border-gray-300 p-2">
+                            <a href="{{ route('pilots.addNote', ['flight_id' => $flight->id]) }}">
+                                <flux:button>Přidat poznámku</flux:button>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
