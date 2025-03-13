@@ -59,7 +59,7 @@
                                                 <flux:button>Zobrazit</flux:button>
                                             </flux:modal.trigger>
                                             <a href="{{ route('admin.edit_flight_record', $record->id) }}">
-                                                <flux:button variant="filled">Upravit (admin)</flux:button>
+                                                <flux:button variant="filled">Upravit</flux:button>
                                             </a>
                                             <flux:modal.trigger name="delete-confirmation-{{ $record->id }}">
                                                 <flux:button variant="danger">Smazat</flux:button>

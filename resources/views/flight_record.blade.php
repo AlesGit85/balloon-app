@@ -3,7 +3,7 @@
     <div class="p-4 border mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
         <h2 class="p-2 mb-2 font-semibold text-center text-lg">Záznam o letu horkovzdušným balónem</h2>
 
-        <table class="w-full border-collapse border border-gray-300 mt-4">
+        <table class="w-full border-collapse border border-gray-300 mt-4 mb-4">
             <thead>
                 <tr class="bg-gray-200">
                     <th class="border border-gray-300 p-2">Číslo letu</th>
